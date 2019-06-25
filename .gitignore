@@ -1,0 +1,3 @@
+#ignore some necessary files and folder
+/.idea/ 
+*.txt
