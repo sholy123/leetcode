@@ -1,42 +1,25 @@
 package main
 
-import (
-	"fmt"
-)
-
-func generateParenthesis(n int)[]string{
+import "fmt"
+func generate(n int)[]string{
 	res := []string{}
+	gen(&res,"",0,n,0)
 	return res
 }
-func generalALL(current string,pos int, result []string){
-	if (pos == len(current)){
-		if isValid(current){
-			result = append(result,current)
-		}
-	}else{
-		string(current[pos]) = "("
-		generalALL(current,pos+1,result)
-		string(current[pos]) = ")"
-		generalALL(current,pos+1,result)
+func gen(res *[]string,temp string,left,n,right int){
+	if right == n{
+		*res = append(*res,temp)
+		return
 	}
-}
-func isValid(str string)bool{
-	balance := 0
-	for i:=0; i < len(str);i++{
-
-		if string(str[i]) == "("{
-			balance ++
-		}else{
-				balance --
-		}
+	if left < n{
+		gen(res,temp+"(",left+1, n, right)
 	}
-	if balance == 0{
-		return true
-	}else{
-		return false
+	if right < left{
+		gen(res, temp + ")",left, n, right + 1)
 	}
 }
 func main() {
-	str := "((())())"
-	fmt.Println(isValid(str))
+	n := 3
+	res := generate(n)
+	fmt.Println(res)
 }
